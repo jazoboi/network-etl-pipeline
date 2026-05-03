@@ -1,0 +1,32 @@
+# ETL Pipeline Configuration
+pipeline:
+  name: network-intelligence-etl
+  schedule: "0 */6 * * *"  # Every 6 hours
+  timeout_minutes: 60
+
+sources:
+  - name: firewall_logs
+    type: csv
+    path: /mnt/raw/firewall/
+    schema: [timestamp, src_ip, dst_ip, action, bytes, protocol]
+
+  - name: device_inventory
+    type: sas7bdat
+    path: /mnt/raw/inventory/
+    schema: [device_id, hostname, ip_address, device_type, location]
+
+  - name: snmp_metrics
+    type: api
+    endpoint: ${SNMP_COLLECTOR_URL}
+    interval_seconds: 300
+
+quality:
+  max_null_pct: 0.05
+  min_row_count: 1000
+  alert_on_failure: true
+
+output:
+  bronze_db: raw
+  silver_db: cleaned
+  gold_db: analytics
+  format: delta

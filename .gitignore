@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+venv/
+.env
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data & secrets
+*.csv
+*.parquet
+*.json
+!config/*.json
+*.env
+.env.local
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MLflow / model artifacts
+mlruns/
+mlartifacts/
+models/
